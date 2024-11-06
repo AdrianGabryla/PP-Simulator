@@ -3,7 +3,7 @@
 public class Elf : Creature
 {
     private int _agility = 1;
-    private int SingCount = 0;
+    private int _singcount = 0;
 
     public Elf(string name = "Unknown Elf", int level = 1, int agility = 1) : base(name, level)
     {
@@ -20,8 +20,8 @@ public class Elf : Creature
 
     public void Sing()
     {
-        SingCount++;
-        if (SingCount % 3 == 0)
+        _singcount++;
+        if (_singcount % 3 == 0)
         {
             Agility = Validator.Limiter(_agility + 1, 0, 10);
         }

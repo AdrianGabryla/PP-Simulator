@@ -3,7 +3,7 @@
 public class Orc : Creature
 {
     private int _rage = 0;
-    private int HuntCount = 0;
+    private int _huntcount = 0;
 
     public int Rage
     {
@@ -20,8 +20,8 @@ public class Orc : Creature
 
     public void Hunt()
     {
-        HuntCount++;
-        if (HuntCount % 3 == 0)
+        _huntcount++;
+        if (_huntcount % 3 == 0)
         {
             if (_rage < 10)
             {
