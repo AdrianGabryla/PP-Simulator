@@ -28,13 +28,13 @@ public readonly struct Point
         switch (direction)
         {
             case Direction.Up:
-                return new Point(X, Y + 1);
+                return new Point(X + 1, Y + 1);
             case Direction.Down:
-                return new Point(X, Y - 1);
+                return new Point(X - 1, Y - 1);
             case Direction.Right:
-                return new Point(X + 1, Y);
+                return new Point(X + 1, Y - 1);
             case Direction.Left:
-                return new Point(X - 1, Y);
+                return new Point(X - 1, Y + 1);
             default:
                 return default;
         };
