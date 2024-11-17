@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
-using Simulator.Maps;
+﻿using Simulator.Maps;
 
 namespace Simulator;
 
@@ -20,20 +18,20 @@ internal class Program
     {
         Console.WriteLine("HUNT TEST\n");
         var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
+        o.Greeting();
         for (int i = 0; i < 10; i++)
         {
             o.Hunt();
-            o.SayHi();
+            o.Greeting();
         }
 
         Console.WriteLine("\nSING TEST\n");
         var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
+        e.Greeting();
         for (int i = 0; i < 10; i++)
         {
             e.Sing();
-            e.SayHi();
+            e.Greeting();
         }
 
         Console.WriteLine("\nPOWER TEST\n");
@@ -68,7 +66,7 @@ internal class Program
     }
     static void Lab5a()
     {
-        Console.WriteLine("Creating a rectangle:");
+        Console.WriteLine("\nCreating a rectangle:");
         try
         {
             Rectangle rect1 = new Rectangle(3, 1, 10, 5);
