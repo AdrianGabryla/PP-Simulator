@@ -11,7 +11,7 @@ public class Rectangle
     {
         if (x1 == x2 || y1 == y2)
         {
-            throw new ArgumentException("We dont want too skinny rectangle");
+            throw new ArgumentException("We dont want too skinny rectangles");
 
         }
 
@@ -28,7 +28,13 @@ public class Rectangle
         X2 = x2;
         Y2 = y2;
     }
-    public Rectangle(Point p1, Point p2) { this.X1 = p1.X; this.Y1 = p1.Y; this.X2 = p2.X; this.Y2 = p2.Y; }
+    public Rectangle(Point p1, Point p2) : this(p1.X, p1.Y, p2.X, p2.Y)
+    {
+        if (p1.X == p2.X || p1.Y == p2.Y)
+        {
+            throw new ArgumentException("We dont want too skinny rectangles");
+        }
+    }
     public bool Contains(Point point) 
         {
         return point.X >= X1 && point.Y >= Y1 && point.X <= X2 && point.Y <= Y2;

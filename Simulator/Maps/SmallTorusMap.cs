@@ -2,13 +2,19 @@
 
 public class SmallTorusMap : SmallMap
 {
-    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) { }
+    private readonly int sizeX;
+    private readonly int sizeY;
+    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
+    {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+    }
 
     public override Point Next(Point p, Direction d)
     {
         Point nextPoint = p.Next(d);
-        int X1 = (nextPoint.X + Size) % Size;
-        int Y1 = (nextPoint.Y + Size) % Size;
+        int X1 = (nextPoint.X + sizeX) % sizeX;
+        int Y1 = (nextPoint.Y + sizeY) % sizeY;
 
         return new Point(X1, Y1);
     }
@@ -16,8 +22,8 @@ public class SmallTorusMap : SmallMap
     public override Point NextDiagonal(Point p, Direction d)
     {
         Point nextPoint = p.NextDiagonal(d);
-        int X2 = (nextPoint.X + Size) % Size;
-        int Y2 = (nextPoint.Y + Size) % Size;
+        int X2 = (nextPoint.X + sizeX) % sizeX;
+        int Y2 = (nextPoint.Y + sizeY) % sizeY;
 
         return new Point(X2, Y2);
     }
