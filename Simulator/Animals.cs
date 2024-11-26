@@ -6,7 +6,7 @@ public class Animals
     public required string Description
     {
         get => description;
-        init => description = Validator.Shortener(value, 3, 15);
+        init => description = Validator.Shortener(value, 3, 15, '#');
     }
     public virtual string Info => $"{Description} <{Size}>";
     public override string ToString()

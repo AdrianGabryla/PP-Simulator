@@ -21,6 +21,7 @@ public class ValidatorTests
     [InlineData("perfect", 5, 10, '#', "Perfect")]
     [InlineData("toolongvalue", 5, 10, '#', "Toolongval")]
     [InlineData("   123", 6, 10, '#', "123###")]
+    [InlineData("A             B", 3, 10, '#', "A##")]
     public void Shortener_ChecksCorrectReturnedValue(string value, int min, int max, char placeholder , string outcome)
     {
         var s = Validator.Shortener(value, min, max, placeholder);

@@ -14,7 +14,7 @@ public abstract class Creature
     public string Name
     {
         get => name;
-        init => name = Validator.Shortener(value, 3, 25);
+        init => name = Validator.Shortener(value, 3, 25, '#');
     }
 
     private int level = 1;
@@ -53,7 +53,4 @@ public abstract class Creature
         Map.Move(this, Position, nextPosition);
         Position = nextPosition;
     }
-    // out
-    public string[] Go(string directions) => Go(DirectionParser.Parse(directions));
-
 }
