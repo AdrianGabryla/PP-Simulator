@@ -10,7 +10,7 @@ public class Simulation
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> IMappables { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -35,7 +35,7 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature => Creatures[_currentMoveIndex % Creatures.Count];
+    public IMappable CurrentMappable => IMappables[_currentMoveIndex % IMappables.Count];
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -49,31 +49,31 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     {
-        if (creatures == null || creatures.Count == 0)
+        if (mappables == null || mappables.Count == 0)
         {
-            throw new ArgumentException("List of creatures cannot be empty.");
+            throw new ArgumentException("List of mappables cannot be empty.");
         }
-        if (creatures.Count != positions.Count)
+        if (mappables.Count != positions.Count)
         {
-            throw new ArgumentException("Number of creatures must match the number of starting positions.");
+            throw new ArgumentException("Number of mappables must match the number of starting positions.");
         }
         Map = map ?? throw new ArgumentNullException(nameof(map));
-        Creatures = creatures;
+        IMappables = mappables;
         Positions = positions;
         Moves = moves ?? throw new ArgumentNullException(nameof(moves));
-        for (int i = 0; i < creatures.Count; i++)
+        for (int i = 0; i < mappables.Count; i++)
         {
-            var creature = creatures[i];
+            var mappable = mappables[i];
             var position = positions[i];
             if (!map.Exist(position))
             {
                 throw new ArgumentException($"Position {position} is outside the bounds of the map.");
             }
-            creature.InitMapAndPosition(map, position);
-            map.Add(creature, position);
+            mappable.InitMapAndPosition(map, position);
+            map.Add(mappable, position);
         }
     }
 
@@ -97,7 +97,7 @@ public class Simulation
         if (directions != null && directions.Count > 0)
         {
             var direction = directions[0];
-            CurrentCreature.Go(direction);
+            CurrentMappable.Go(direction);
         }
         _currentMoveIndex++;
         if (_currentMoveIndex >= Moves.Length)
