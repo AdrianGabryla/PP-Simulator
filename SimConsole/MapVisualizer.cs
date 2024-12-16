@@ -13,11 +13,6 @@ public class MapVisualizer
     {
         DrawMap(_map);
     }
-    public void Draw(SimulationState state)
-    {
-        var tempMap = new TempMap(_map.SizeX, _map.SizeY, state.MappableStates);
-        DrawMap(tempMap);
-    }
     public void DrawMap(Map map)
     {
         Console.Write(Box.TopLeft);
