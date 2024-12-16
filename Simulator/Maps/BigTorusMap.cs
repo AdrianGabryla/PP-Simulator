@@ -1,15 +1,16 @@
 ﻿
 namespace Simulator.Maps;
 
-public class SmallTorusMap : SmallMap
+public class BigTorusMap : BigMap
 {
     private readonly int sizeX;
     private readonly int sizeY;
-    public SmallTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY) 
+    public BigTorusMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
     }
+
 
     public override Point Next(Point p, Direction d)
     {

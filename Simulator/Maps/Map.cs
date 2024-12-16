@@ -9,24 +9,28 @@ public abstract class Map
 {
     public int SizeX { get; }
     public int SizeY { get; }
-    protected abstract List<IMappable>?[,] Fields { get; }
     private Rectangle _bounds;
-
-    public virtual void Add(IMappable mappable, Point point)
+    private Dictionary<Point, List<IMappable>> mappablesFields = new Dictionary<Point, List<IMappable>>();
+    public void Add(IMappable mappable, Point point)
     {
         if (!Exist(point))
             throw new ArgumentException($"{point} is out of bounds.");
-        Fields[point.X, point.Y] ??= new List<IMappable>();
-        Fields[point.X, point.Y]?.Add(mappable);
+        if (!mappablesFields.ContainsKey(point))
+        {
+            mappablesFields[point] = new List<IMappable>();
+        }
+        mappablesFields[point].Add(mappable);
     }
 
-    public virtual void Remove(IMappable mappable, Point point)
+    public void Remove(IMappable mappable, Point point)
     {
-        if (Fields[point.X, point.Y] != null)
+        if (mappablesFields.ContainsKey(point))
         {
-            Fields[point.X, point.Y]?.Remove(mappable);
-            if (Fields[point.X, point.Y]?.Count == 0)
-                Fields[point.X, point.Y] = null;
+            mappablesFields[point].Remove(mappable);
+            if (mappablesFields[point].Count == 0)
+            {
+                mappablesFields.Remove(point);
+            }
         }
     }
     public virtual void Move(IMappable mappable, Point from, Point to)
@@ -35,16 +39,20 @@ public abstract class Map
         Add(mappable, to);
     }
 
-    public virtual List<IMappable> At(Point point)
+    public List<IMappable> At(Point point)
     {
-        return Fields[point.X, point.Y] ?? new List<IMappable>();
+        if (mappablesFields.ContainsKey(point))
+        {
+            return mappablesFields[point];
+        }
+        return new List<IMappable>();
     }
-    public virtual List<IMappable> At(int x, int y)
+    public List<IMappable> At(int x, int y)
     {
         return At(new Point(x, y));
     }
 
-    protected Map(int sizeX, int sizeY)
+    public Map(int sizeX, int sizeY)
     {
         if (sizeX < 5 || sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Map too small");
         SizeX = sizeX;

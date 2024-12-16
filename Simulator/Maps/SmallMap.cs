@@ -10,6 +10,4 @@ public abstract class SmallMap : Map
         if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(sizeY), "Map too high");
         _fields = new List<IMappable>?[sizeX, sizeY];
     }
-    protected override List<IMappable>?[,] Fields => _fields;
-
 }
